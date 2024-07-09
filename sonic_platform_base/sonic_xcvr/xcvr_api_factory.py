@@ -97,7 +97,7 @@ class XcvrApiFactory(object):
             xcvr_eeprom = XcvrEeprom(self.reader, self.writer, mem_map)
             api = Sff8636Api(xcvr_eeprom)
         # QSFP+ or QSFP
-        elif id == 0x0D or id == 0x0C:
+        elif id == 0x0d:
             revision_compliance = self._get_revision_compliance()
             if revision_compliance >= 3:
                 codes = Sff8636Codes
@@ -109,6 +109,11 @@ class XcvrApiFactory(object):
                 mem_map = Sff8436MemMap(codes)
                 xcvr_eeprom = XcvrEeprom(self.reader, self.writer, mem_map)
                 api = Sff8436Api(xcvr_eeprom)
+        elif id == 0x0c:
+            codes = Sff8436Codes
+            mem_map = Sff8436MemMap(codes)
+            xcvr_eeprom = XcvrEeprom(self.reader, self.writer, mem_map)
+            api = Sff8436Api(xcvr_eeprom)
         elif id == 0x03:
             codes = Sff8472Codes
             mem_map = Sff8472MemMap(codes)
