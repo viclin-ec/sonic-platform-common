@@ -41,6 +41,7 @@ class SsdUtil(SsdBase):
     def __init__(self, diskdev):
         self.vendor_ssd_utility = {
             "Generic"  : { "utility" : SMARTCTL, "parser" : self.parse_generic_ssd_info },
+            "Phison"   : { "utility" : SMARTCTL, "parser" : self.parse_generic_ssd_info },
             "InnoDisk" : { "utility" : INNODISK, "parser" : self.parse_innodisk_info },
             "M.2"      : { "utility" : INNODISK, "parser" : self.parse_innodisk_info },
             "StorFly"  : { "utility" : VIRTIUM,  "parser" : self.parse_virtium_info },
@@ -83,6 +84,8 @@ class SsdUtil(SsdBase):
             return 'Virtium'
         elif self.model.startswith('SFS'):
             return 'Swissbit'
+        elif self.model.startswith(('EPM3750', 'MPT160')):
+            return 'Phison'
         else:
             return None
 
