@@ -707,6 +707,9 @@ class CmisApi(XcvrApi):
         '''
         Returns True if xcvr is copper, False if xcvr is optical
         '''
+        media_tech = self.get_media_interface_technology()
+        if media_tech and 'Copper cable' in media_tech:
+            return True
         media_type = self.get_module_media_type()
         if media_type == 'passive_copper_media_interface' or media_type == 'base_t_media_interface':
             return True
